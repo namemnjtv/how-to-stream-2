@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิธีการเป็น Streamer ตั้งแต่เริ่มต้น | STREAMER ACADEMY</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt & Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ytRed: '#FF0000',
+                        crimson: {
+                            500: '#e6002e',
+                            600: '#cc0028',
+                            700: '#99001e',
+                            glow: '#ff0033'
+                        },
+                        obsidian: {
+                            900: '#0f0f12',
+                            800: '#18181c',
+                            700: '#222228',
+                            600: '#2d2d35'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Prompt', 'Kanit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-red': '0 0 25px rgba(255, 0, 51, 0.45)',
+                        'neon-red-sm': '0 0 12px rgba(255, 0, 51, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #0f0f12;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0f12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222228;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff0033;
+        }
+
+        /* Neon Glow Effects */
+        .text-glow-red {
+            text-shadow: 0 0 15px rgba(255, 0, 51, 0.7);
+        }
+        .bg-glass {
+            background: rgba(24, 24, 28, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 0, 51, 0.15);
+        }
+
+        /* Gradient Borders */
+        .crimson-card {
+            position: relative;
+            background: #18181c;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+        .crimson-card:hover {
+            border-color: rgba(255, 0, 51, 0.5);
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Range Slider Styling */
+        input[type=range] {
+            accent-color: #ff0033;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-crimson-500 selection:text-white">
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- YouTube Branding Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="px-3 py-1.5 rounded-xl bg-ytRed text-white flex items-center justify-center font-bold shadow-neon-red-sm group-hover:scale-105 transition-transform">
+                    <i class="fa-brands fa-youtube text-2xl mr-1.5"></i>
+                    <span class="font-extrabold tracking-wider text-sm">LIVE</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-extrabold tracking-wide text-white leading-none">STREAMER<span class="text-crimson-glow">ACADEMY</span></span>
+                    <span class="text-[10px] text-gray-400 font-medium tracking-widest uppercase">YouTube Creator Guide</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center gap-6 font-medium text-xs xl:text-sm text-gray-300">
+                <a href="#hero" class="hover:text-crimson-glow transition-colors">หน้าแรก</a>
+                <a href="#steps" class="hover:text-crimson-glow transition-colors">ขั้นตอนเริ่มต้น</a>
+                <a href="#hardware" class="hover:text-crimson-glow transition-colors">อุปกรณ์ที่ต้องมี</a>
+                <a href="#software" class="hover:text-crimson-glow transition-colors">โปรแกรม & OBS</a>
+                <a href="#calculator" class="hover:text-crimson-glow transition-colors">คำนวณงบประมาณ</a>
+                <a href="#youtube-growth" class="hover:text-crimson-glow transition-colors">เทคนิคดึงดูดคนดู</a>
+            </nav>
+
+            <a href="#quiz" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-ytRed to-crimson-500 text-white font-semibold text-xs xl:text-sm hover:shadow-neon-red hover:scale-105 transition-all">
+                <i class="fa-solid fa-gamepad"></i> ทำแบบทดสอบความพร้อม
+            </a>
+
+            <!-- Mobile Hamburger -->
+            <button id="mobileMenuBtn" class="lg:hidden text-2xl text-gray-300 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-obsidian-800 border-b border-crimson-500/30 px-6 py-4 flex flex-col gap-4 text-sm font-medium">
+            <a href="#hero" class="mobile-link text-gray-300 hover:text-crimson-glow">หน้าแรก</a>
+            <a href="#steps" class="mobile-link text-gray-300 hover:text-crimson-glow">ขั้นตอนเริ่มต้น</a>
+            <a href="#hardware" class="mobile-link text-gray-300 hover:text-crimson-glow">อุปกรณ์ที่ต้องมี</a>
+            <a href="#software" class="mobile-link text-gray-300 hover:text-crimson-glow">โปรแกรม & OBS</a>
+            <a href="#calculator" class="mobile-link text-gray-300 hover:text-crimson-glow">คำนวณงบประมาณ</a>
+            <a href="#youtube-growth" class="mobile-link text-gray-300 hover:text-crimson-glow">เทคนิคดึงดูดคนดู</a>
+            <a href="#quiz" class="mobile-link text-crimson-glow font-bold">ทำแบบทดสอบความพร้อม</a>
+        </div>
+    </header>
+
+    <!-- HERO HEADER SECTION -->
+    <section id="hero" class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+        <!-- Glow Orbs BG -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-ytRed/15 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-crimson-glow/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-ytRed/10 border border-ytRed/40 text-crimson-glow text-xs sm:text-sm font-semibold mb-6 shadow-neon-red-sm animate-pulse">
+                <i class="fa-brands fa-youtube text-ytRed"></i> คู่มือการสตรีมมิ่งบน YouTube & แพลตฟอร์มชั้นนำ ปี 2026
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                จากมือใหม่ สู่ <span class="text-transparent bg-clip-text bg-gradient-to-r from-ytRed via-crimson-glow to-red-400 text-glow-red">Streamer</span><br class="hidden sm:inline"> มืออาชีพตั้งแต่เริ่มต้น
+            </h1>
+
+            <p class="max-w-3xl mx-auto text-base sm:text-lg text-gray-300 mb-10 font-normal leading-relaxed">
+                เส้นทางสร้างตัวตนบนโลกออนไลน์ ปูพื้นฐานครบถ้วนตั้งแต่ 0 ทั้งสเปกคอม อุปกรณ์ ไมโครโฟน การตั้งค่า OBS เทคนิคดึงดูดคนดู และการสร้างรายได้บน YouTube
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#steps" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-ytRed to-crimson-600 text-white font-bold text-base hover:shadow-neon-red hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rocket"></i> เริ่มเรียนรู้ขั้นตอนแรก
+                </a>
+                <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-obsidian-800 border border-crimson-500/40 hover:border-crimson-glow text-gray-200 font-semibold text-base hover:bg-obsidian-700 hover:text-white transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-calculator text-crimson-glow"></i> คำนวณงบประมาณ
+                </a>
+            </div>
+
+            <!-- Quick Stats Ticker -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-16 pt-10 border-t border-obsidian-700">
+                <div class="p-4 rounded-xl bg-obsidian-800/80 border border-obsidian-700">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-ytRed">5 ขั้นตอน</div>
+                    <div class="text-xs sm:text-sm text-gray-400 mt-1">โร้ดแมปเข้าใจง่าย</div>
+                </div>
+                <div class="p-4 rounded-xl bg-obsidian-800/80 border border-obsidian-700">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-crimson-glow">0 บาท</div>
+                    <div class="text-xs sm:text-sm text-gray-400 mt-1">ก็เริ่มไลฟ์สตรีมได้</div>
+                </div>
+                <div class="p-4 rounded-xl bg-obsidian-800/80 border border-obsidian-700">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-white">OBS Preset</div>
+                    <div class="text-xs sm:text-sm text-gray-400 mt-1">สูตรตั้งค่าสตรีมลื่นๆ</div>
+                </div>
+                <div class="p-4 rounded-xl bg-obsidian-800/80 border border-obsidian-700">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-ytRed">100% Free</div>
+                    <div class="text-xs sm:text-sm text-gray-400 mt-1">คู่มือใช้งานฟรี</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: STEP-BY-STEP ROADMAP -->
+    <section id="steps" class="py-20 bg-obsidian-900 border-t border-obsidian-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-crimson-glow uppercase tracking-widest mb-2">ROADMAP GUIDE</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">5 ขั้นตอนเริ่มต้นสู่การเป็น Streamer</p>
+                <p class="text-gray-400 mt-3 text-sm sm:text-base">ทำตามลำดับนี้เพื่อสร้างรากฐานช่อง YouTube/Streaming ให้พร้อมเติบโตแบบยั่งยืน</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Phase 1 -->
+                <div class="crimson-card p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-xl bg-ytRed/20 border border-ytRed/40 text-ytRed font-extrabold text-xl flex items-center justify-center">01</span>
+                            <i class="fa-solid fa-bullseye text-2xl text-gray-600 group-hover:text-crimson-glow transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-crimson-glow transition-colors">1. ค้นหาเน้นท์ & สไตล์ (Niche)</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            กำหนดหมวดหมู่และเอกลักษณ์ของตัวเองเพื่อดึงดูดผู้ติดตามกลุ่มเป้าหมาย
+                        </p>
+                        <ul class="text-xs text-gray-300 space-y-2 mb-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>แคสเกม:</strong> เกมแมส / เกมอินดี้ / เกมเนื้อเรื่อง</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>Just Chatting:</strong> ชวนคุย เล่าข่าว เล่าเรื่องตลก</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>ดนตรี & ศิลปะ:</strong> วาดรูป เล่นดนตรีสด ให้ความรู้</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>VTuber:</strong> ใช้โมเดลเสมือนจริง 2D/3D</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="crimson-card p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-xl bg-ytRed/20 border border-ytRed/40 text-ytRed font-extrabold text-xl flex items-center justify-center">02</span>
+                            <i class="fa-solid fa-microchip text-2xl text-gray-600 group-hover:text-crimson-glow transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-crimson-glow transition-colors">2. เตรียมอุปกรณ์หลัก (Hardware)</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            อุปกรณ์คือหัวใจสำคัญในการส่งมอบภาพและเสียงคุณภาพดีให้ผู้ชม
+                        </p>
+                        <ul class="text-xs text-gray-300 space-y-2 mb-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>คอมพิวเตอร์ / โน้ตบุ๊ก:</strong> สเปกพอสำหรับเกมและไลฟ์</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>ไมโครโฟน:</strong> เสียงชัดเจนสำคัญกว่าภาพชัด!</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>กล้อง & แสงไฟ:</strong> เว็บแคม + ไฟเติมหน้าสว่าง</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>อินเทอร์เน็ต:</strong> เน้นค่า Upload 20+ Mbps</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="crimson-card p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-xl bg-ytRed/20 border border-ytRed/40 text-ytRed font-extrabold text-xl flex items-center justify-center">03</span>
+                            <i class="fa-solid fa-sliders text-2xl text-gray-600 group-hover:text-crimson-glow transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-crimson-glow transition-colors">3. ติดตั้ง & ตั้งค่าซอฟต์แวร์</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            โปรแกรมทำหน้าที่รวบรวมสัญญาณภาพและเสียงเพื่อส่งออกไปยัง YouTube
+                        </p>
+                        <ul class="text-xs text-gray-300 space-y-2 mb-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>OBS Studio:</strong> โปรแกรมฟรีมาตรฐานระดับโลก</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>Streamlabs:</strong> มีวิดเจ็ตในตัว ใช้ง่ายสำหรับมือใหม่</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>Discord:</strong> ดึงเสียงเพื่อนร่วมทีมเข้าสตรีม</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="crimson-card p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-xl bg-ytRed/20 border border-ytRed/40 text-ytRed font-extrabold text-xl flex items-center justify-center">04</span>
+                            <i class="fa-solid fa-paint-brush text-2xl text-gray-600 group-hover:text-crimson-glow transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-crimson-glow transition-colors">4. ออกแบบหน้าจอ & Branding</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            สร้างภาพจำและ Branding หน้าจอให้โดดเด่นน่าจดจำ
+                        </p>
+                        <ul class="text-xs text-gray-300 space-y-2 mb-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>Overlay & Cam Frame:</strong> กรอบกล้องถ่ายสด</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>Alert Box:</strong> การเด้งเตือนเมื่อมีคนกด Subscribe / โดเนท</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-crimson-glow"></i> <strong>Start & BRB Screen:</strong> ฉากรอก่อนเริ่ม และฉากพักสายตา</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 5 -->
+                <div class="crimson-card p-6 flex flex-col justify-between group md:col-span-2 lg:col-span-2">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-xl bg-ytRed/20 border border-ytRed/40 text-ytRed font-extrabold text-xl flex items-center justify-center">05</span>
+                            <i class="fa-solid fa-tower-broadcast text-2xl text-gray-600 group-hover:text-crimson-glow transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-crimson-glow transition-colors">5. กด "Go Live" & สร้างแฟนคลับ</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            ลงมือปฏิบัติจริง สตรีมอย่างสม่ำเสมอพร้อมสร้างปฏิกิริยากับคนดู
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-300">
+                            <div class="p-3 bg-obsidian-900/80 rounded-lg border border-obsidian-700">
+                                <i class="fa-solid fa-comments text-ytRed mr-1"></i> <strong>ตอบแชทตลอดเวลา:</strong> ทักทายผู้ชม พูดคุยเหมือนเป็นเพื่อนกัน
+                            </div>
+                            <div class="p-3 bg-obsidian-900/80 rounded-lg border border-obsidian-700">
+                                <i class="fa-solid fa-calendar-days text-ytRed mr-1"></i> <strong>สตรีมตรงเวลา:</strong> มีตารางเวลาสตรีมชัดเจนเพื่อให้คนดูรอติดตาม
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: HARDWARE TIER & CHECKLIST -->
+    <section id="hardware" class="py-20 bg-obsidian-800/50 border-t border-obsidian-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-crimson-glow uppercase tracking-widest mb-2">HARDWARE & SETUP</h2>
+                <p class="text-3xl font-extrabold text-white">เช็คลิสต์อุปกรณ์ตามงบประมาณ</p>
+                <p class="text-gray-400 text-sm mt-2">เลือกงบประมาณของคุณเพื่อดูชุดอุปกรณ์แนะนำสำหรับเริ่มสตรีม</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex justify-center gap-2 mb-8">
+                <button onclick="switchTier('budget')" id="tab-budget" class="tier-tab px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-ytRed text-white shadow-neon-red-sm transition-all">
+                    🌱 สายประหยัด (เริ่มต้น)
+                </button>
+                <button onclick="switchTier('mid')" id="tab-mid" class="tier-tab px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-obsidian-800 border border-obsidian-700 text-gray-300 hover:text-white transition-all">
+                    ⚡ สายปานกลาง (ยอดนิยม)
+                </button>
+                <button onclick="switchTier('pro')" id="tab-pro" class="tier-tab px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-obsidian-800 border border-obsidian-700 text-gray-300 hover:text-white transition-all">
+                    🔥 สายจัดเต็ม (Professional)
+                </button>
+            </div>
+
+            <!-- Tier Content Card -->
+            <div id="tierContent" class="crimson-card p-6 sm:p-8 max-w-4xl mx-auto">
+                <!-- Dynamically populated via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: OBS SETTINGS CHEAT SHEET -->
+    <section id="software" class="py-20 bg-obsidian-900 border-t border-obsidian-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-crimson-glow uppercase tracking-widest mb-2">SOFTWARE & SETTINGS</h2>
+                <p class="text-3xl font-extrabold text-white">สูตรตั้งค่า OBS Studio สตรีมบน YouTube</p>
+                <p class="text-gray-400 text-sm mt-2">ตั้งค่าอย่างไรให้ภาพชัด คมกริบ ไร้ปัญหากระตุก</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 1080p 60FPS Settings -->
+                <div class="bg-obsidian-800 rounded-2xl p-6 border border-crimson-500/30">
+                    <div class="flex items-center gap-3 mb-6 border-b border-obsidian-700 pb-4">
+                        <div class="w-10 h-10 rounded-xl bg-ytRed/20 text-ytRed flex items-center justify-center font-bold text-lg">
+                            1080p
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">ตั้งค่ามาตรฐาน 1080p 60FPS</h3>
+                            <p class="text-xs text-gray-400">สำหรับคอมพิวเตอร์ระดับปานกลางขึ้นไป + เน็ต Upload 15+ Mbps</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-xs sm:text-sm">
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">Output Resolution:</span>
+                            <span class="font-bold text-white">1920 x 1080</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">FPS Value:</span>
+                            <span class="font-bold text-white">60 FPS</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">Video Bitrate:</span>
+                            <span class="font-bold text-crimson-glow">6,000 - 9,000 Kbps</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">Encoder:</span>
+                            <span class="font-bold text-white">NVIDIA NVENC H.264 / AV1</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">Audio Bitrate:</span>
+                            <span class="font-bold text-white">160 - 320 Kbps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 720p 60FPS Settings -->
+                <div class="bg-obsidian-800 rounded-2xl p-6 border border-obsidian-700">
+                    <div class="flex items-center gap-3 mb-6 border-b border-obsidian-700 pb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gray-700 text-gray-200 flex items-center justify-center font-bold text-lg">
+                            720p
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">ตั้งค่าเซฟสเปก 720p 60FPS</h3>
+                            <p class="text-xs text-gray-400">สำหรับคอมพิวเตอร์สเปกเริ่มต้น หรือสตรีมเกมหนักๆ</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-xs sm:text-sm">
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">Output Resolution:</span>
+                            <span class="font-bold text-white">1280 x 720</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">FPS Value:</span>
+                            <span class="font-bold text-white">60 FPS</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">Video Bitrate:</span>
+                            <span class="font-bold text-crimson-glow">4,000 - 4,500 Kbps</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">Encoder:</span>
+                            <span class="font-bold text-white">x264 (Veryfast) หรือ QuickSync</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-obsidian-900 rounded-lg">
+                            <span class="text-gray-400">Audio Bitrate:</span>
+                            <span class="font-bold text-white">128 - 160 Kbps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Filters Accordion -->
+            <div class="mt-8 bg-obsidian-800 rounded-2xl p-6 border border-obsidian-700">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-ytRed"></i> 3 Audio Filters สำคัญแก้ปัญหาเสียงไมค์
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 bg-obsidian-900 rounded-xl">
+                        <div class="font-bold text-crimson-glow mb-1">1. Noise Suppression</div>
+                        <div class="text-gray-400">กรองเสียงรบกวนรอบข้าง เช่น เสียงพัดลม เสียงคีย์บอร์ด</div>
+                    </div>
+                    <div class="p-4 bg-obsidian-900 rounded-xl">
+                        <div class="font-bold text-crimson-glow mb-1">2. Compressor</div>
+                        <div class="text-gray-400">เกลี่ยเสียงตะโกนไม่ให้แตก และเพิ่มเสียงพูดเบาๆ ให้ชัดขึ้น</div>
+                    </div>
+                    <div class="p-4 bg-obsidian-900 rounded-xl">
+                        <div class="font-bold text-crimson-glow mb-1">3. Limiter</div>
+                        <div class="text-gray-400">ตั้งค่าเพดานความดังสูงสุดเพื่อป้องกันเสียงพีคทะลุหลอดแดง</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE BUDGET CALCULATOR -->
+    <section id="calculator" class="py-20 bg-obsidian-800/40 border-t border-obsidian-800 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-crimson-glow uppercase tracking-widest mb-2">BUDGET CALCULATOR</h2>
+                <p class="text-3xl font-extrabold text-white">เครื่องมือคำนวณงบประมาณเริ่มต้น</p>
+                <p class="text-gray-400 text-sm mt-2">เลือกอุปกรณ์ที่คุณต้องการสั่งซื้อเพื่อประเมินงบประมาณรวมเป็นบาท (฿)</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Inputs Section -->
+                <div class="lg:col-span-7 bg-obsidian-800 p-6 sm:p-8 rounded-2xl border border-obsidian-700 space-y-6">
+                    
+                    <!-- Microphone -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-200 mb-2">1. ไมโครโฟน (Microphone)</label>
+                        <select id="calcMic" onchange="calculateBudget()" class="w-full bg-obsidian-900 border border-obsidian-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-crimson-glow">
+                            <option value="0">มีไมค์หูฟังเดิมอยู่แล้ว (฿0)</option>
+                            <option value="1200" selected>ไมค์ USB เริ่มต้น (เช่น Fifine K669B) (฿1,200)</option>
+                            <option value="3500">ไมค์ USB คุณภาพสูง (เช่น HyperX SoloCast / Razer) (฿3,500)</option>
+                            <option value="9500">ชุดไมค์ XLR + Audio Interface (ระดับโปร) (฿9,500)</option>
+                        </select>
+                    </div>
+
+                    <!-- Webcam / Camera -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-200 mb-2">2. กล้องไลฟ์สด (Camera)</label>
+                        <select id="calcCam" onchange="calculateBudget()" class="w-full bg-obsidian-900 border border-obsidian-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-crimson-glow">
+                            <option value="0" selected>ยังไม่ใช้กล้อง / ใช้แอปมือถือแทนกล้อง (฿0)</option>
+                            <option value="1500">Webcam 1080p แบบประหยัด (฿1,500)</option>
+                            <option value="3200">Webcam ยอดนิยม (เช่น Logitech C922) (฿3,200)</option>
+                            <option value="18000">กล้อง Mirrorless + Capture Card (คมชัดระดับแคสเตอร์) (฿18,000)</option>
+                        </select>
+                    </div>
+
+                    <!-- Lighting & Accessories -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-200 mb-2">3. ไฟส่องหน้า & ขาตั้งไมค์ (Lighting & Boom Arm)</label>
+                        <select id="calcLight" onchange="calculateBudget()" class="w-full bg-obsidian-900 border border-obsidian-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-crimson-glow">
+                            <option value="0">ใช้ไฟห้องปกติ (฿0)</option>
+                            <option value="600" selected>ไฟ Ring Light + ขาตั้งไมค์หนีบโต๊ะ (฿600)</option>
+                            <option value="2500">ชุดไฟ Softbox 2 ตัว + ขาตั้งไมค์แบบมีสปริง (฿2,500)</option>
+                        </select>
+                    </div>
+
+                    <!-- Capture Card -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-200 mb-2">4. การ์ดจับภาพ (Capture Card สำหรับจับภาพจาก Console/มือถือ)</label>
+                        <select id="calcCap" onchange="calculateBudget()" class="w-full bg-obsidian-900 border border-obsidian-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-crimson-glow">
+                            <option value="0" selected>สตรีมเกมบน PC ไม่ต้องใช้ (฿0)</option>
+                            <option value="450">Capture Card USB ตัวประหยัด (฿450)</option>
+                            <option value="5500">Capture Card แบรนด์เนม (เช่น Elgato / AverMedia) (฿5,500)</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Result Box -->
+                <div class="lg:col-span-5 bg-glass p-8 rounded-2xl border border-crimson-500/40 shadow-neon-red text-center relative overflow-hidden">
+                    <span class="text-xs font-bold text-crimson-glow uppercase tracking-wider block mb-2">ประมาณการงบประมาณรวม</span>
+                    <div id="totalCostDisplay" class="text-4xl sm:text-5xl font-extrabold text-white my-4 text-glow-red">
+                        ฿1,800
+                    </div>
+                    <p class="text-xs text-gray-400 mb-6">คำนวณเฉพาะอุปกรณ์เสริมสตรีมมิ่ง (ไม่รวมสเปกคอมพิวเตอร์หลัก)</p>
+
+                    <div class="p-4 rounded-xl bg-obsidian-900/90 text-left space-y-2 text-xs border border-obsidian-700">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">คำแนะนำงบ:</span>
+                            <span id="budgetAdvise" class="font-bold text-crimson-glow">งบประหยัดเริ่มต้นได้ทันที!</span>
+                        </div>
+                        <p class="text-gray-400 leading-relaxed mt-2">
+                            * ข้อดี: เน้นลงทุนกับไมโครโฟนก่อนเป็นอันดับแรก จะทำให้ช่องดูเป็นมืออาชีพขึ้นทันทีแม้ไม่มีกล้อง
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: YOUTUBE GROWTH & MONETIZATION -->
+    <section id="youtube-growth" class="py-20 bg-obsidian-900 border-t border-obsidian-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-ytRed uppercase tracking-widest mb-2">YOUTUBE GROWTH TIPS</h2>
+                <p class="text-3xl font-extrabold text-white">เทคนิคเติบโต & สร้างรายได้บน YouTube</p>
+                <p class="text-gray-400 text-sm mt-2">สตรีมอย่างไรให้มีคนดูเพิ่มขึ้นและต่อยอดสู่การสร้างรายได้</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Shorts Strategy -->
+                <div class="crimson-card p-6">
+                    <div class="w-12 h-12 rounded-xl bg-ytRed/20 text-ytRed flex items-center justify-center text-2xl font-bold mb-4">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">1. ตัดไฮไลต์ลง YouTube Shorts</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        อย่าไลฟ์ทิ้งไว้เฉยๆ! ตัดช่วงเวลาตลก หรือจังหวะเล่นเกมโหดๆ ความยาว 30-60 วินาที ทำเป็นวิดีโอแนวตั้งเพื่อดึงดูดคนดูใหม่ๆ จาก Shorts เข้ามาดูไลฟ์สตรีมสดของคุณ
+                    </p>
+                </div>
+
+                <!-- Monetization Requirements -->
+                <div class="crimson-card p-6">
+                    <div class="w-12 h-12 rounded-xl bg-ytRed/20 text-ytRed flex items-center justify-center text-2xl font-bold mb-4">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">2. เงื่อนไข YouTube Partner</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        เป้าหมายเปิดสร้างรายได้: ผู้ติดตามครบ 1,000 คน + ยอดรับชม 4,000 ชั่วโมง เพื่อเปิดรับเงินจาก Super Chat, Super Stickers, สมาชิกช่อง (Memberships) และโฆษณา
+                    </p>
+                </div>
+
+                <!-- SEO & Thumbnail -->
+                <div class="crimson-card p-6">
+                    <div class="w-12 h-12 rounded-xl bg-ytRed/20 text-ytRed flex items-center justify-center text-2xl font-bold mb-4">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">3. ปกและชื่อสตรีมต้องดึงดูด</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        ตั้งชื่อสตรีมที่น่าสนใจและใส่คีย์เวิร์ดค้นหา ทำปกไลฟ์สตรีมที่มีใบหน้าแสดงอารมณ์ชัดเจนพร้อมตัวหนังสือขนาดใหญ่ เพื่อให้คนที่เลื่อนผ่านกดเข้ามาดู
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: INTERACTIVE QUIZ -->
+    <section id="quiz" class="py-20 bg-obsidian-800/50 border-t border-obsidian-800">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-glass p-8 rounded-3xl border border-crimson-500/40 shadow-neon-red relative">
+                <div class="text-center mb-8">
+                    <span class="px-3 py-1 rounded-full bg-ytRed/20 text-crimson-glow text-xs font-bold uppercase">Are You Ready?</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2">คุณพร้อมเป็น Streamer แล้วหรือยัง?</h2>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-1">ตอบคำถาม 4 ข้อเพื่อประเมินความพร้อมก่อนเริ่มสตรีม</p>
+                </div>
+
+                <div id="quizContainer">
+                    <!-- Dynamic Content Managed by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-obsidian-900 border-t border-obsidian-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="px-2.5 py-1 rounded-lg bg-ytRed text-white font-bold text-sm">
+                    <i class="fa-brands fa-youtube"></i>
+                </div>
+                <span class="font-bold text-gray-200">STREAMER<span class="text-crimson-glow">ACADEMY</span></span>
+            </div>
+            <p class="text-xs text-gray-500 text-center sm:text-left">
+                © 2026 Streamer Academy Thailand. คู่มือสำหรับสตรีมเมอร์มือใหม่ทุกคน
+            </p>
+            <div class="flex items-center gap-4 text-gray-400">
+                <a href="#" class="hover:text-ytRed transition-colors"><i class="fa-brands fa-youtube text-lg"></i></a>
+                <a href="#" class="hover:text-crimson-glow transition-colors"><i class="fa-brands fa-discord text-lg"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Hardware Tier Tabs Data
+        const tierData = {
+            budget: {
+                title: "🌱 ชุดเริ่มต้นงบประหยัด (0 - 3,000 บาท)",
+                items: [
+                    "<strong>คอมพิวเตอร์ / มือถือเดิมที่มีอยู่แล้ว:</strong> ไม่ต้องซื้อเครื่องใหม่ เริ่มจากสตรีมเกมมือถือหรือเกม PC ที่มี",
+                    "<strong>ไมโครโฟน USB เริ่มต้น:</strong> Fifine K669B หรือไมค์หูฟังเกมมิ่ง (ประมาณ 800 - 1,200 บาท)",
+                    "<strong>กล้อง:</strong> ใช้กล้องมือถือต่อผ่านแอป DroidCam / Iriun Webcam (ฟรี)",
+                    "<strong>แสงไฟ:</strong> ใช้ไฟห้องปกติ หรือไฟ Ring Light ขนาดเล็ก (ประมาณ 300 บาท)"
+                ]
+            },
+            mid: {
+                title: "⚡ ชุดยอดนิยมสตรีมเมอร์ (5,000 - 15,000 บาท)",
+                items: [
+                    "<strong>ไมโครโฟน USB คุณภาพสูง:</strong> HyperX SoloCast หรือ Razer Seiren Mini (ประมาณ 2,500 บาท)",
+                    "<strong>กล้อง Webcam:</strong> Logitech C922 Pro / Elgato Facecam (ประมาณ 3,500 - 5,000 บาท)",
+                    "<strong>ขาตั้งไมค์ & Shock Mount:</strong> ป้องกันเสียงกระแทกโต๊ะ (ประมาณ 800 บาท)",
+                    "<strong>ไฟส่องหน้า:</strong> ชุดไฟ Softbox หรือ Ring Light ใหญ่ (ประมาณ 1,500 บาท)"
+                ]
+            },
+            pro: {
+                title: "🔥 ชุดจัดเต็มระดับโปร (30,000+ บาท)",
+                items: [
+                    "<strong>ไมโครโฟน XLR + Audio Interface:</strong> Shure SM7B + GoXLR / Elgato Wave XLR (ประมาณ 20,000 บาท)",
+                    "<strong>กล้อง Mirrorless:</strong> Sony ZV-E10 / Canon EOS M50 + Capture Card 4K (ประมาณ 25,000 บาท)",
+                    "<strong>ชุดไฟมืออาชีพ:</strong> Elgato Key Light Air (ประมาณ 9,000 บาท)",
+                    "<strong>อุปกรณ์เสริม:</strong> Elgato Stream Deck สำหรับกดเปลี่ยนฉากสด (ประมาณ 5,500 บาท)"
+                ]
+            }
+        };
+
+        function switchTier(tierKey) {
+            document.querySelectorAll('.tier-tab').forEach(btn => {
+                btn.className = "tier-tab px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-obsidian-800 border border-obsidian-700 text-gray-300 hover:text-white transition-all";
+            });
+
+            const activeBtn = document.getElementById(`tab-${tierKey}`);
+            activeBtn.className = "tier-tab px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-ytRed text-white shadow-neon-red-sm transition-all";
+
+            const data = tierData[tierKey];
+            const contentContainer = document.getElementById('tierContent');
+
+            contentContainer.innerHTML = `
+                <h3 class="text-xl font-bold text-white mb-4">${data.title}</h3>
+                <ul class="space-y-3 text-xs sm:text-sm text-gray-300">
+                    ${data.items.map(item => `
+                        <li class="flex items-start gap-3 p-3 bg-obsidian-900 rounded-lg border border-obsidian-700">
+                            <i class="fa-solid fa-circle-check text-crimson-glow mt-1"></i>
+                            <div>${item}</div>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+
+        switchTier('budget');
+
+        // Budget Calculator Logic
+        function calculateBudget() {
+            const mic = parseInt(document.getElementById('calcMic').value);
+            const cam = parseInt(document.getElementById('calcCam').value);
+            const light = parseInt(document.getElementById('calcLight').value);
+            const cap = parseInt(document.getElementById('calcCap').value);
+
+            const total = mic + cam + light + cap;
+            document.getElementById('totalCostDisplay').innerText = `฿${total.toLocaleString()}`;
+
+            const advise = document.getElementById('budgetAdvise');
+            if (total === 0) {
+                advise.innerText = "เริ่มสตรีมได้ฟรีเลย!";
+            } else if (total <= 3000) {
+                advise.innerText = "งบประหยัด เริ่มต้นได้ทันที!";
+            } else if (total <= 10000) {
+                advise.innerText = "งบปานกลาง คุณภาพดีมาก!";
+            } else {
+                advise.innerText = "ระดับมืออาชีพ สตรีมคมชัดกริบ!";
+            }
+        }
+
+        // Quiz Logic
+        const quizQuestions = [
+            {
+                q: "1. คุณมีไมโครโฟนสำหรับพูดคุยกับคนดูหรือยัง?",
+                a: [
+                    { text: "มีไมค์แยก/ไมค์หูฟังแล้ว เสียงชัดเจนดี", score: 25 },
+                    { text: "ใช้ไมค์โน้ตบุ๊ก/ยังไม่มีไมค์เลย", score: 10 }
+                ]
+            },
+            {
+                q: "2. อินเทอร์เน็ตที่บ้านคุณมีค่า Upload Speed เท่าไหร่?",
+                a: [
+                    { text: "20 Mbps ขึ้นไป (ใช้สาย LAN)", score: 25 },
+                    { text: "น้อยกว่า 15 Mbps / ใช้ Wi-Fi", score: 10 }
+                ]
+            },
+            {
+                q: "3. คุณมีเวลาสตรีมมิ่งอย่างน้อยกี่วันต่อสัปดาห์?",
+                a: [
+                    { text: "2 - 4 วันต่อสัปดาห์ สม่ำเสมอ", score: 25 },
+                    { text: "ไม่แน่นอน ว่างวันไหนค่อยสตรีม", score: 15 }
+                ]
+            },
+            {
+                q: "4. คุณพร้อมที่จะพูดคุยและตอบแชทกับคนดูตลอดเวลาหรือไม่?",
+                a: [
+                    { text: "พร้อมมาก ชอบคุยและเอนเตอร์เทนคนดู", score: 25 },
+                    { text: "ยังเขินอาย ไม่ค่อยกล้าพูดคนเดียว", score: 10 }
+                ]
+            }
+        ];
+
+        let currentQ = 0;
+        let totalScore = 0;
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            if (currentQ < quizQuestions.length) {
+                const q = quizQuestions[currentQ];
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <p class="text-base font-bold text-white mb-4">${q.q}</p>
+                        <div class="space-y-3">
+                            ${q.a.map(opt => `
+                                <button onclick="answerQuiz(${opt.score})" class="w-full p-4 rounded-xl bg-obsidian-900 border border-obsidian-700 hover:border-crimson-glow text-left text-xs sm:text-sm text-gray-200 transition-all flex items-center justify-between group">
+                                    <span>${opt.text}</span>
+                                    <i class="fa-solid fa-chevron-right text-gray-600 group-hover:text-crimson-glow"></i>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function answerQuiz(score) {
+            totalScore += score;
+            currentQ++;
+            renderQuiz();
+        }
+
+        function showQuizResult() {
+            const container = document.getElementById('quizContainer');
+            let resultText = "";
+            let resultClass = "";
+
+            if (totalScore >= 85) {
+                resultText = "🔥 ความพร้อม 100%! คุณพร้อมเปิดโปรแกรม OBS แล้วกด Go Live บน YouTube ได้เลย!";
+                resultClass = "text-crimson-glow";
+            } else if (totalScore >= 60) {
+                resultText = "⚡ ความพร้อม 70%! มีอุปกรณ์และแนวคิดที่ดีแล้ว ปรับเรื่องความสม่ำเสมอและไมค์อีกนิดก็พร้อมสตรีม!";
+                resultClass = "text-yellow-400";
+            } else {
+                resultText = "🌱 ความพร้อม 40%! แนะนำให้ลองเตรียมไมค์และฝึกพูดคนเดียวหน้ากล้องอีกนิด แล้วลองเริ่มสตรีมดูครับ!";
+                resultClass = "text-gray-300";
+            }
+
+            container.innerHTML = `
+                <div class="text-center space-y-4 py-4">
+                    <div class="text-4xl font-extrabold text-white">คะแนนความพร้อม: <span class="${resultClass}">${totalScore}/100</span></div>
+                    <p class="text-sm text-gray-300 max-w-md mx-auto leading-relaxed">${resultText}</p>
+                    <button onclick="resetQuiz()" class="mt-4 px-6 py-2.5 rounded-full bg-ytRed hover:bg-crimson-600 text-white font-bold text-xs transition-all">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> ทำแบบทดสอบใหม่
+                    </button>
+                </div>
+            `;
+        }
+
+        function resetQuiz() {
+            currentQ = 0;
+            totalScore = 0;
+            renderQuiz();
+        }
+
+        renderQuiz();
+    </script>
+</body>
+</html>
